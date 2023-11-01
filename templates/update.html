@@ -1,0 +1,27 @@
+{% block action %}"/api/pokemons/update/{{ id }}"{% endblock %}
+{% block fields %}
+    <br>
+    Name:
+    <br>
+    <input type="text" class="form-control" name="name">
+    <br>
+    Size:
+
+    Size:
+
+<br>
+    <input type="number" class="form-control" name="size">
+    <br>
+    Weight:
+    <br>
+    <input type="number" class="form-control" name="weight">
+    <br>
+    Statistics:
+    <br>
+    <input type="number" class="form-control" name="Statistics">
+    <br>
+    Picture:
+    <br>
+    <input type="text" class="form-control" name="picture">
+    <br>
+{% endblock %}

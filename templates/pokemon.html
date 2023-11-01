@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokémon</title>
+</head>
+<body>
+    <h1>Les Pokémons </h1>
+    <button class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">Add Student</button>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Size</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Statistics</th>
+            <th scope="col">Picture</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in pokemons %}
+        <tr>
+        <td>{{row.0}}</td>
+        <td>{{row.1}}</td>
+        <td>{{row.2}}</td>
+        <td>{{row.3}}</td>
+        <td>{{row.4}}</td>
+        <td><img src="{{ row.5 }}" alt="{{row.name}}" width="100"></td>
+        <td>
+            <a href="/api/pokemons/{{row.0}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledit{{row.0}}">afficher les detailles</a>
+            <a href="/update/{{row.0}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</a>
+            <a href="/delete/{{ row.0 }}" onclick="return confirm('Are Sure Want To Deleted ?')" class="btn btn-danger btn-sm">Delete</a>
+
+        </td>
+    </tr>
+
+        {% endfor %}
+    </table>
+</body>
+</html>
