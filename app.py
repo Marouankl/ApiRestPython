@@ -1,7 +1,7 @@
 from _curses import *
 
 import os
-from flask import Flask, render_template, jsonify, json, request
+from flask import Flask, render_template, jsonify, json, request, redirect, url_for
 from flask_mysqldb import MySQL
 import collections
 
@@ -19,7 +19,7 @@ mysql = MySQL(app)
 def hello_world():
     return render_template('home.html')
 
-
+#
 #----------------------------------------------------------------------------------------------------------------------------------------
 #Get pokemons with fatchall
 #1) GET - /api/pokemons : Récupère la liste de tous les pokémons:
@@ -96,46 +96,52 @@ def getSkils():
         return jsonify(data)
     else:
         return "Compétences non trouvées"
+
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------
+# 10) DELETE - /api/pokemons/:id : Supression du pokémon précisé par :id
+# La methode pour supprimer un pokemon avec son id
+@app.route('/api/pokemons/delete/<int:id>', methods=['GET', 'POST'])
+def deleteTask(id):
+    conn = mysql.connection.cursor()  # Pour connecter à la base de données
+    conn.execute('DELETE FROM pokemon WHERE id_Pokemon=%s', [id])  # Requête SQL pour supprimer un Pokémon avec un ID
+    conn.connection.commit()
+
+    # Rediriger l'utilisateur vers la page 'pokemon.html'
+    return redirect(url_for('getPokemon'))
+
 #----------------------------------------------------------------------------------------------------------------------------------------
 #5)POST - /api/pokemons : Ajout d’un pokémon
 #creaded new pokemon
 @app.route('/api/pokemons/create', methods=['POST'])
 def createPokemon():
+
     if request.method == 'POST':
-        try:
-            # Établir une connexion à la base de données
-            conn = mysql.connection.cursor()
-
-            # Exécutez la requête SQL pour insérer des données dans the table 'pokemon'
-            conn.execute(
-                'INSERT INTO pokemon (name, size, weight, Statistics, picture, powers, description, precisions, PPMax, typeName) '
-                'SELECT p.name, p.size, p.weight, p.Statistics, p.picture, s.powers, s.description, s.precisions, s.PPMax, t.typeName '
-                'FROM pokemon p '
-                'INNER JOIN fastSkils fs ON p.id_Pokemon = fs.id_Pokemon '
-                'INNER JOIN skils s ON fs.id_Competance = s.id_Competance '
-                'LEFT JOIN type t ON s.id_Competance = t.id_Type'
-            )
-            conn.connection.commit()
-            conn.close()
-
-            response = {'message': 'Votre Pokémon a bien été ajouté !'}
-            return jsonify(response), 201  # 201 Created
-        except Exception as e:
-            return jsonify({'error': str(e)}), 500  # 500 Internal Server Error
+        conn = mysql.connection.cursor()
+        name = request.form['name']
+        size = request.form['size']
+        weight = request.form['weight']
+        Statistics = request.form['Statistics']  # Utilisez une minuscule pour le nom de la variable
+        picture = request.form['picture']
+        sql = "INSERT INTO pokemon (name, size, weight, Statistics, picture) VALUES (%s, %s, %s, %s, %s)"
+        data = (name, size, weight, Statistics, picture)
+        conn.execute(sql, data)
+        # return le résultat  en forma  JSON response
+        return redirect(url_for('pokemon.html'))
     else:
-        # Méthode de requête incorrecte
-        return jsonify({'error': 'Méthode non autorisée'}), 405
+        return ('error')
 
 
-#----------------------------------------------------------------------------------------------------------------------------------------
-# 6) POST - /api/types : Ajout d’un type
+
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 #creaded new pokemon
+#6) POST - /api/types : Ajout d’un type
 @app.route('/api/types/create', methods=['POST'])
 def createTypes():
-    conn = mysql.connection.cursor()
     if request.method == 'POST':
+        conn = mysql.connection.cursor()
         sql = (
             'INSERT INTO type (id_Type,typeName, id_Competance,powers, description, precisions, PPMax,id_Pokmeon, name, size, weight, Statistics, picture) '
             'SELECT t.typeName, s.powers, s.description, s.precisions, s.PPMax, p.name, p.size, p.weight, p.Statistics, p.picture '
@@ -154,29 +160,37 @@ def createTypes():
         return 'error'
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-@app.route('/api/pokemons/update/<int:id>', methods=['GET'])
-def showUpdateForm(id):
-    conn = mysql.connection.cursor()
-    conn.execute('SELECT * FROM pokemon WHERE id_Pokemon = %s', (id,))
-    result = conn.fetchone()
-    conn.close()
-
-    if result:
-        return render_template('update.html', id=id, pokemon=result)
+@app.route('/api/pokemons/update/<int:id>', methods=['PUT' ])
+def UpdateForm(id):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    if request.method == 'PUT':
+        id_Pokemon = request.form['id_Pokemon']
+        name = request.form['name']
+        size = request.form['size']
+        weight = request.form['weight']
+        statistics = request.form['statistics']
+        picture = request.form['picture']
+        sql = ('UPDATE pokemon '
+            'SET name=%s, size=%s, weight=%s, Statistics=%s, picture=%s '
+            'WHERE id_Pokemon=%s')
+        data = (id_Pokemon,name, size, weight, statistics, picture, id)
+        cursor.execute(sql, data)
+        conn.commit()
+        # return le résultat  en forma  JSON response
+        return render_template('updatePokemon.html', id=id)
     else:
-        return jsonify({'message': 'Pokémon not found'})
+        return ('error')
 
 
 
 
-# DELETE - /api/pokemons/:id : Supression du pokémon précisé par :id
-# La methode pour supprimer un pokemon avec son id
-@app.route('/api/pokemons/<id>', methods=['GET', 'POST'])
-def deleteTask(id):
-    conn = mysql.connection.cursor()  # Pour connceter a la base de donnée
-    conn.execute('DELETE FROM pokemon WHERE id_Pokemon=%s', [id])  # requette sql pour supprimer un pokemon avec un ID
-    conn.commit()
-    return json.dumps({'message': 'tache supprimée !'})  # return le résultat  en forma  JSON response
+
+#-------------------------------
+
+@app.route('/api/pokemons/create', methods=['GET'])
+def createPokemons():
+    return render_template('createPokemon.html')
 
 
 if __name__ == "__main__":
