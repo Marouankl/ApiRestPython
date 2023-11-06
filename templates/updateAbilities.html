@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Update Skilis</h1>
+   <a href=" {{ url_for('getPokemon') }} ">Back</a>
+ <div class="modal-body">
+     <form action="{{ url_for('Updateabilities', id=id) }}" method="POST">
+    <div class="form-group">
+        <label> ID skils:</label>
+        <input type="number" name="id_Competance" value="{{id}}">
+    </div>
+    <div class="form-group">
+        <label> powers</label>
+        <input type="text" name="powers" class="form-control" value="{{powers}}" >
+    </div>
+
+    <div class="form-group">
+        <label>description</label>
+        <input type="text" name="description" class="form-control" value="{{description}}">
+    </div>
+
+    <div class="form-group">
+        <label>precisions</label>
+        <input type="number" name="precisions" class="form-control" value="{{precisions}}">
+    </div>
+
+    <div class="form-group">
+        <label>PPMax</label>
+        <input type="number" name="PPMax" class="form-control" value="{{PPMax}}">
+    </div>
+
+       <button type="submit" class="btn btn-success mb-2">Update</button>
+</form>
+ </div>
+
+</body>
+</html>

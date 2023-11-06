@@ -10,7 +10,7 @@
      <form action="{{ url_for('UpdateForm', id=id) }}" method="POST">
     <div class="form-group">
         <label> ID Pokemon:</label>
-        <input type="hidden" name="id_Pokemon" value="{{ id }}">
+        <input type="number" name="id_Pokemon" value="{{ id }}">
     </div>
 
     <div class="form-group">
@@ -30,7 +30,7 @@
 
     <div class="form-group">
         <label>statistical</label>
-        <input type="number" name="statistical" class="form-control" value="{{ statistics }}">
+        <input type="number" name="statistical" class="form-control" value="{{ statistical }}">
     </div>
 
     <div class="form-group">
