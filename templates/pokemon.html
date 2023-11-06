@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pokémon</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.2/examples/album/">
 </head>
 <body>
 
@@ -11,7 +12,7 @@
 
 
 
-    <table class="table table-hover">
+    <table class="table table-bordered">
     <thead>
         <tr>
             <th scope="col">ID</th>
@@ -26,7 +27,7 @@
     <tbody>
         {% for row in pokemons %}
         <tr>
-        <td>{{row.0}}</td>
+        <th scope="row">{{row.0}}</th>
         <td>{{row.1}}</td>
         <td>{{row.2}}</td>
         <td>{{row.3}}</td>
@@ -42,5 +43,6 @@
 
         {% endfor %}
     </table>
-</body>
+
+ </body>
 </html>

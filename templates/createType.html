@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
+ <h1>Ajouter un type à un Pokémon</h1>
+    <form method="post" action="{{ url_for('createTypes') }}">
+        <label for="id_Pokemon">Sélectionnez le Pokémon par ID :</label><br>
+        <input type="radio" name="pokemon_id" value="1"> Pokémon 1<br>
+        <br><br>
+
+        <label for="typeName">Nom du type :</label>
+        <input type="text" name="typeName" required><br>
+
+        <button type="submit">Add type</button>
+    </form>
 
 </body>
 </html>

@@ -5,58 +5,41 @@
     <title>Title</title>
 </head>
 <body>
+<h1>Update Pokemon</h1>
  <div class="modal-body">
-     <form action="/api/pokemons/update/{{ id }}" method="POST">
-         <div class="form-group">
-             <label> Name pokemon</label>
-             <input type="text" name="name" class="form-control" placeholder="Enter  Name">
-         </div>
+     <form action="{{ url_for('UpdateForm', id=id) }}" method="POST">
+    <div class="form-group">
+        <label> ID Pokemon:</label>
+        <input type="hidden" name="id_Pokemon" value="{{ id }}">
+    </div>
 
-         <div class="form-group">
-             <label>size</label>
-             <input type="number" name="size" class="form-control" >
-         </div>
-         <div class="form-group">
-             <label>size</label>
-             <input type="number" name="size" class="form-control" >
-         </div>
-         <div class="form-group">
-             <label>weight</label>
-             <input type="number" name="weight" class="form-control" >
-         </div>
-         <div class="form-group">
-             <label>Statistics</label>
-             <input type="number" name="Statistics" class="form-control" >
-         </div>
+    <div class="form-group">
+        <label> Name Pokemon</label>
+        <input type="text" name="name" class="form-control" value="{{ name }}" placeholder="Enter Name">
+    </div>
 
-         <div class="form-group">
-             <label>picture</label>
-             <input name="picture" type="file" class="form-control"  >
-         </div>
+    <div class="form-group">
+        <label>Size</label>
+        <input type="number" name="size" class="form-control" value="{{ size }}">
+    </div>
 
-         <div class="form-group">
-             <label> powers</label>
-             <input type="number" name="powers" class="form-control">
-         </div>
+    <div class="form-group">
+        <label>Weight</label>
+        <input type="number" name="weight" class="form-control" value="{{ weight }}">
+    </div>
 
-         <div class="form-group">
-             <label>description</label>
-             <input type="text" name="description" class="form-control" >
-         </div>
-         <div class="form-group">
-             <label>precisions</label>
-             <input type="number" name="precisions" class="form-control" >
-         </div>
-         <div class="form-group">
-             <label>PPMax</label>
-             <input type="number" name="PPMax" class="form-control" >
-         </div>
-         <div class="form-group">
-             <label>typeName</label>
-             <input type="text" name="typeName" class="form-control" >
-         </div>
-         <button type="submit" class="btn btn-success mb-2">Update</button>
-     </form>
+    <div class="form-group">
+        <label>statistical</label>
+        <input type="number" name="statistical" class="form-control" value="{{ statistics }}">
+    </div>
+
+    <div class="form-group">
+        <label>Picture</label>
+        <input name="picture" type="text" class="form-control" value="{{ picture }}">
+    </div>
+
+    <button type="submit" class="btn btn-success mb-2">Update</button>
+</form>
  </div>
 </body>
 </html>
