@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> View skils </h1>
+   <a href=" {{ url_for('getPokemon') }} ">Back</a>
+
+ <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">id_Competance</th>
+            <th scope="col">powers</th>
+            <th scope="col">description</th>
+            <th scope="col">precisions</th>
+            <th scope="col">PPMax</th>
+            <th scope="col">typeName</th>
+            <th scope="col">Action</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in skils %}
+        <tr>
+            <th scope="row">{{row.0}}</th>
+            <td>{{row.1}}</td>
+            <th scope="row">{{row.2}}</th>
+            <td>{{row.3}}</td>
+            <td>{{row.4}}</td>
+            <td>{{ row.5 }}</td>
+            <td>{{row.6}}</td>
+            <td>{{ row.7}}</td>
+            <td>
+                    <a href="/api/abilities/update/{{row.2}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+
+</body>
+</html>

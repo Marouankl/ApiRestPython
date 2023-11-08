@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokémon Details</title>
+</head>
+<body>
+    <h1>Pokémon Details</h1>
+     <a href=" {{ url_for('getPokemon') }} ">Back</a>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Size</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Statistics</th>
+            <th scope="col">Picture</th>
+            <th scope="col">Powers</th>
+            <th scope="col">Description</th>
+            <th scope="col">Precisions</th>
+            <th scope="col">PPMax</th>
+            <th scope="col">Type Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for col in pokemon %}
+        <tr>
+        <td>{{col.0}}</td>
+        <td>{{col.1}}</td>
+        <td>{{col.2}}</td>
+        <td>{{col.3}}</td>
+        <td>{{col.4}}</td>
+        <td><img src="{{ col.5 }}" alt="{{col.name}}" width="100"></td>
+        <td>{{col.6}}</td>
+        <td>{{col.7}}</td>
+        <td>{{col.8}}</td>
+        <td>{{col.9}}</td>
+       <td>{{col.10}}</td>
+        <td>{{col.11}}</td>
+    </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
