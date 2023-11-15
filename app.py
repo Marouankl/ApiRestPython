@@ -93,20 +93,47 @@ def getPokemonById(id):
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # 3) GET - /api/types/:id : Récupère les détails du type précisé par :id
+
 @app.route('/api/types/<int:id>', methods=['GET'])
 def getTypeById(id):
     conn = mysql.connection.cursor()
     conn.execute('SELECT * FROM type WHERE id_Type=%s', [id])
-    result = conn.fetchone()
+    result = conn.fetchall()
+    return render_template('typeId.html', types=result)  # Use 'type' instead of 'types'
 
-    if result:
-        typeInfo = {
-            'id_Type': result[0],
-            'typeName': result[1],
-        }
-        return render_template('type.html', types=typeInfo)  # Pass a list of type_info to the template
+#----------------------------------------------------------------------------------------------------------------------------------------
+# 3) GET - /api/types/:id : Récupère les détails du type précisé par :id
+
+@app.route('/api/types/update/<int:id>', methods=['GET','PUT'])
+def updateTypeById(id):
+    conn = mysql.connection.cursor()
+
+    if request.method == 'POST':
+        typeName = request.form.get('typeName')
+        sql = 'UPDATE type SET typeName=%s WHERE id_Type=%s'
+        data = (typeName, id)
+        conn.execute(sql, data)
+        mysql.connection.commit()
+        conn.close()
+        flash('Type mis à jour avec succès', 'success')
+        return redirect(url_for('getTypesById'))
     else:
-        return "Type not found", 404
+        # Chargez les données existantes pour les afficher dans le formulaire
+        sql = 'SELECT typeName FROM type WHERE id_Type = %s'
+        conn.execute(sql, (id,))
+        data = conn.fetchone()
+        conn.close()
+
+        if data:
+            typeName = data[0]
+        else:
+            # Gérer le cas où l'ID n'existe pas
+            flash('Type not found', 'danger')
+            return redirect(url_for('getTypesById'))
+
+        # Redirigez vers la page de gestion des compétences ou une autre vue
+        return render_template('updatetype.html', id=id, typeName=typeName)
+
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # 4) GET - /api/abilities : Récupère la liste de toutes les compétences
@@ -173,8 +200,6 @@ def createPokemon():
             mysql.connection.rollback()
             conn.close()
             return f'Erreur lors de la création du Pokémon : {str(e)}'
-
-    types = [...]  # Remplacez ceci par la liste réelle de types
     return render_template('createPokemon.html', types=type)
 #----------------------------------------------------------------------------------------------------------------------------------------
 #creaded new pokemon
@@ -343,7 +368,11 @@ def createTypes():
 
 @app.route('/api/types/', methods=['GET'])
 def getTypesById():
-    return render_template('type.html')
+    conn = mysql.connection.cursor()
+    conn.execute('SELECT * FROM type ')
+    resultats = conn.fetchall()
+    return render_template('typeId.html',types=resultats)
+
 
 @app.route('/api/abilities/update', methods=['GET'])
 def updateSkils():
