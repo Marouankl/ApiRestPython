@@ -1,0 +1,106 @@
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+}
+
+.pokemon-ball {
+  border: 3px solid white;
+  border-radius: 50%;
+}
+
+#home {
+  background: url("https://lh3.googleusercontent.com/ohXfK_gejGdGoxN7Vzf2hE9EWsvXhR9AnPlRqylsbhSFn1hU2pDZ4dkG8Q8Wj8cd4g9hVGShd2X7qBSTkbWiX-2UmhH44u_-M4xpO2nMBYsi0ymKeMpfZFOMWXtTJW28YdTjVquwquv9pTTCBFpTnG_C8euEUgO08mXO63oDcqIN9bmSvh5B8MUDw2MJ_oYAMJoCi8UeI9nvfs7z3UbcQQPNYHyXgi0wKW9aMmz8ogaRUPHf5Z7tKv9Am8my9XsleXNzeZjlTY7qobFffw5xwpNBUGNYdPWfkF-XWQyhrcJsESwGFHUlFDtVvU_V6IOgHA-jZmnmu8e3_wBA50VTO713U-DoDMjhZliK1qSUoR9FBxcPE7Z_O3kVk9v5qFUgwO2wmybVKDmH9gn55vDnBEiHCr-0cfKJgJHYlgIFm3fwguGYtIEpYK5ucGAxjz_NPcM5fw9BNQ-M67dyM5eY9Tdav198oMNTAJLKGmdaEG4v8UqRsxk5hyFhOWeufn6vuaG2TrxB9_kDR5gaYroneuDaYB9CySvKyXo_AmqA3po7mGl8W0HBphFHzOPkfFqyGdpTfeJNurtKuuV99cb57kHxwieMwWCPwUNRFzZwOByzNyfcPkeVMgy8z7tpYj6Eb9SUpt8Y-6j9-Qj9lfxnHJNTZ0CTzxvJ-N_Mwya-YA=w1135-h638-no") no-repeat;
+  padding: 40px 0;
+    font-family: 'Ubuntu', sans-serif;
+    background-size: cover;
+
+}
+
+#home div {
+  display: inline-block;
+  vertical-align: top;
+  width: 48%;
+}
+
+.aboutImg {
+  text-align: center;
+}
+
+.headerOne {
+  font-family: 'Oswald', sans-serif;
+  font-size: 36px;
+  text-transform: uppercase;
+  color: #9E1908;
+}
+
+.headerP {
+  color: white;
+  font-size: 12px;
+  width: 80%;
+}
+
+.headerP a {
+  color: #013763;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.row {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.goButton {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background: #013763;
+  text-transform: uppercase;
+}
+
+.btn-item,
+button {
+  padding: 10px 5px;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: none;
+  background: #26a9e0;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.btn-item {
+  display: inline-block;
+  margin: 20px 5px 0;
+}
+
+button {
+  width: 100%;
+}
+
+button:hover,
+.btn-item:hover {
+  background: #85d6de;
+}
+
+.mon-bouton {
+  display: inline-block;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #26a9e0;
+  color: #ffffff;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.mon-bouton:hover {
+  background-color: #85d6de;
+}
