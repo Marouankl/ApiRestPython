@@ -328,7 +328,7 @@ def deleteTask(id):
     conn.connection.commit()
 
     # Rediriger l'utilisateur vers la page 'pokemon.html'
-    return render_template('pokemon.html', id=id)
+    return redirect(url_for('getPokemon',id=id))
 
 
 #-------------------------------
