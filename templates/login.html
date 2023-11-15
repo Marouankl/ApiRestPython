@@ -1,31 +1,60 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-	<title>Login</title>
-</head>
-<body>
-<div class="login">
-			<h1>Login</h1>
-			<form action="{{ url_for('login') }}" method="post">
-				<label for="email">
-					<i class="fas fa-user"></i>
-				</label>
-				<input type="text" name="email" placeholder="email" id="email" required>
-				<label for="password">
-					<i class="fas fa-lock"></i>
-				</label>
-				<input type="password" name="password" placeholder="Password" id="password" required>
-				<div class="msg">{{ msg }}</div>
-				<input type="submit" value="Login">
-			</form>
-		</div>
-</body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    </head>
+    <body>
+        <audio autoplay>
+            <source src="http://s2.3lbh.com/s/87EJ97gi.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <!-- Start Main Container -->
+        <div class="main-container">
+            <!-- Start Pokemon Ball Top Part -->
+            <div class="pokemon-top-part"></div>
+            <!-- End Pokemon Ball Top Part -->
+            <!-- Start Main Forms -->
+            <div class="main-forms">
+                <div class="signup-form">
+                    <form class="sign-back" action="/" method="post">
+                        <h1>sign IN</h1>
+                        <div class="signup-row">
+                            <i class="fa fa-envelope-o"></i>
+                            <input type="email" name="email"  placeholder="EMAIL">
+								<div class="msg"></div>
+                        </div>
+
+                        <div class="signup-row">
+                            <i class="fa fa-key"></i>
+                            <input type="password" name="password"  placeholder="PASSWORD">
+								<div class="msg"></div>
+                        </div>
+                        <div class="signup-row">
+                            <button type="submit"> Login
+                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- End Main Forms -->
+            <!-- Start Pokemon Ball Bottom Part -->
+            <div class="pokemon-bottom-part">
+                <div class="white-part"></div>
+                <div class="black-line"></div>
+            </div>
+            <!-- End Pokemon Ball Bottom Part -->
+        </div>
+        <!-- End Main Container -->
+        <!-- Start Scripts -->
+        <script type="text/javascript" src="/static/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="/static/login.js"></script>
+        <script src="https://use.fontawesome.com/7dddae9ad9.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script>
+
+        <!-- End Scripts -->
+    </body>
 </html>
-
-
-

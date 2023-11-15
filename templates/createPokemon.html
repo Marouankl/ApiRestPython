@@ -1,22 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='addPokemon.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
 </head>
 <body>
- <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
 
-                <div class="modal-header">
-                    <h1 class="modal-title text-primary" style="align-content: center;">Please Add New Pokemon</h1>
-                    <a href=" {{ url_for('getPokemon') }} ">Back</a>
-                    <a href=" {{ url_for('createTypes') }} ">Add Type</a>
-                </div>
+<div id="home">
+  <div class="aboutImg">
+    <img src="http://www.pngmart.com/files/2/Pokeball-PNG-Image.png" class="pokemon-ball" width="300">
+  </div>
+  <div>
+    <h1 class="headerOne">Please Add New Pokemon</h1>
+      <div>
+          <a class="mon-bouton" href=" /api/pokemons ">Back</a>
+          <a class="mon-bouton" href=" /api/types/create ">Add Type</a>
+      </div>
 
-                <div class="modal-body">
-                   <form action="{{ url_for('createPokemon') }}" method="POST">
+        <div class="modal-body">
+                   <form action="/api/pokemons/create" method="POST">
                         <div class="form-group">
                             <label> Name pokemon : </label>
                             <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="Enter Name">
@@ -31,7 +37,7 @@
                             <input type="number" name="weight" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>statistical : </label>
+                            <label>Statistical : </label>
                             <input type="number" name="statistical" class="form-control">
                         </div>
 
@@ -55,25 +61,25 @@
                             <label>PPMax : </label>
                             <input type="number" name="PPMax" class="form-control">
                         </div>
-<!--                        <div>-->
-<!--                            <label for="type-select">Choose a type:</label>-->
-<!--                            <select name="typeName" id="type-select">-->
-<!--                                <option value="">&#45;&#45;Please choose a type&#45;&#45;</option>-->
-<!--                                {% for type in types %}-->
-<!--                                <option value="{{ type.typeName }}">{{ type.typeName }}</option>-->
-<!--                                {% endfor %}-->
-<!--                            </select>-->
-<!--                        </div>-->
+                         <div class="form-group">
+                            <label for="type">Type:</label>
+                            <select name="type" required>
+                                {% for type in types %}
+                                    <option value="{{ type.id }}">{{ type.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
                         <button type="submit" class="btn btn-primary mb-2">Save</button>
+
                     </form>
 
 
                 </div>
-            </div>
-        </div>
 
-    </div>
-
+  </div>
+</div>
 
 </body>
 </html>
