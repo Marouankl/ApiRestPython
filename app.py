@@ -127,7 +127,7 @@ def getSkils():
 #creaded new pokemon
 type = [
     {"id": 1, "name": "Plante"},
-    {"id": 2, "name": "Plante"},
+    {"id": 2, "name": "Feu"},
     {"id": 3, "name": "Water"},
     {"id": 4, "name": "Comba"},
 ]
