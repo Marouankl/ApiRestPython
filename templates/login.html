@@ -10,12 +10,10 @@
             <source src="http://s2.3lbh.com/s/87EJ97gi.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
-        <!-- Start Main Container -->
         <div class="main-container">
-            <!-- Start Pokemon Ball Top Part -->
+         
             <div class="pokemon-top-part"></div>
-            <!-- End Pokemon Ball Top Part -->
-            <!-- Start Main Forms -->
+     
             <div class="main-forms">
                 <div class="signup-form">
                     <form class="sign-back" action="/" method="post">
@@ -40,18 +38,17 @@
                     </form>
                 </div>
             </div>
-            <!-- End Main Forms -->
-            <!-- Start Pokemon Ball Bottom Part -->
+           
             <div class="pokemon-bottom-part">
                 <div class="white-part"></div>
                 <div class="black-line"></div>
             </div>
-            <!-- End Pokemon Ball Bottom Part -->
+       
         </div>
-        <!-- End Main Container -->
-        <!-- Start Scripts -->
-        <script type="text/javascript" src="/static/jquery-1.11.3.min.js"></script>
-        <script type="text/javascript" src="/static/login.js"></script>
+       
+        <script type="text/javascript" src="{{ url_for('static', filename='jquery-1.11.3.min.js') }}"></script>
+        <script type="text/javascript" src="{ url_for('static', filename='login.js') }}"></script>
+
         <script src="https://use.fontawesome.com/7dddae9ad9.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script>
 
