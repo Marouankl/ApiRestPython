@@ -102,7 +102,7 @@ def getTypeById(id):
     return render_template('typeId.html', types=result)  # Use 'type' instead of 'types'
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 3) GET - /api/types/:id : Récupère les détails du type précisé par :id
+#  GET-POST - /api/types/update:id : update type précisé par :id
 
 @app.route('/api/types/update/<int:id>', methods=['GET','PUT'])
 def updateTypeById(id):
@@ -151,7 +151,7 @@ def getSkils():
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 #5)POST - /api/pokemons : Ajout d’un pokémon
-#creaded new pokemon
+#create new pokemon
 type = [
     {"id": 1, "name": "Plante"},
     {"id": 2, "name": "Feu"},
