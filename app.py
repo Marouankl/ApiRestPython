@@ -125,10 +125,15 @@ def getSkils():
 #----------------------------------------------------------------------------------------------------------------------------------------
 #5)POST - /api/pokemons : Ajout d’un pokémon
 #creaded new pokemon
-@app.route('/api/pokemons/create', methods=['POST'])
+type = [
+    {"id": 1, "name": "Plante"},
+    {"id": 2, "name": "Plante"},
+    {"id": 3, "name": "Water"},
+    {"id": 4, "name": "Comba"},
+]
+@app.route('/api/pokemons/create', methods=['GEt','POST'])
 def createPokemon():
     if request.method == 'POST':
-        conn = mysql.connection.cursor()
         name = request.form['name']
         size = request.form['size']
         weight = request.form['weight']
@@ -138,32 +143,39 @@ def createPokemon():
         description = request.form['description']
         precisions = request.form['precisions']
         PPMax = request.form['PPMax']
-        typeName = request.form['typeName']
+        type_id = request.form['type']
 
-        # Insert data into the "pokemon" table
-        sql = 'INSERT INTO pokemon (name, size, weight, statistical, picture) VALUES (%s, %s, %s, %s, %s)'
-        data = (name, size, weight, statistical, picture)
-        conn.execute(sql, data)
+        try:
+            conn = mysql.connection.cursor()
 
-        # Get the last inserted ID
-        last_insert_id = conn.lastrowid
+            # Insérer les données dans la table "pokemon"
+            conn.execute("INSERT INTO pokemon (name, size, weight, statistical, picture) VALUES (%s, %s, %s, %s, %s)",
+                         (name, size, weight, statistical, picture))
+            pokemon_id = conn.lastrowid
 
-        # Insert data into the "skils" table with a subquery
-        sql = ('INSERT INTO skils (powers, description, precisions, PPMax, id_Type) '
-               'SELECT %s, %s, %s, %s, id_Type FROM type WHERE typeName = %s')
-        data = (powers, description, precisions, PPMax, typeName)
-        conn.execute(sql, data)
+            # Insérer les données dans la table "skils"
+            conn.execute("INSERT INTO skils (powers, description, precisions, PPMax, id_Type) VALUES (%s, %s, %s, %s, %s)",
+                         (powers, description, precisions, PPMax, type_id))
+            competance_id = conn.lastrowid  # Récupérer l'ID de la compétence
 
-        # Insert data into the "typing" table
-        sql = 'INSERT INTO typing (id_Pokemon, id_Type) VALUES (%s, %s)'
-        data = (last_insert_id, conn.lastrowid)
-        conn.execute(sql, data)
+            # Associer le Pokémon à son type
+            conn.execute("INSERT INTO typing (id_Pokemon, id_Type) VALUES (%s, %s)", (pokemon_id, type_id))
 
-        # Commit the transaction
-        conn.connection.commit()
-        return redirect(url_for('getPokemon'))
-    else:
-        return ('error')
+            # Associer le Pokémon à sa compétence
+            conn.execute("INSERT INTO fastSkils (id_Pokemon, id_Competance) VALUES (%s, %s)", (pokemon_id, competance_id))
+
+            mysql.connection.commit()
+            conn.close()
+
+            return redirect(url_for('getPokemon'))
+
+        except Exception as e:
+            mysql.connection.rollback()
+            conn.close()
+            return f'Erreur lors de la création du Pokémon : {str(e)}'
+
+    types = [...]  # Remplacez ceci par la liste réelle de types
+    return render_template('createPokemon.html', types=type)
 #----------------------------------------------------------------------------------------------------------------------------------------
 #creaded new pokemon
 #6) POST - /api/types : Ajout d’un type
@@ -316,7 +328,7 @@ def deleteTask(id):
     conn.connection.commit()
 
     # Rediriger l'utilisateur vers la page 'pokemon.html'
-    return render_template('pokemon.html', id=id)
+    return redirect(url_for('getPokemon',id=id))
 
 
 #-------------------------------
