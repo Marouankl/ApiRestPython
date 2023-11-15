@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Update type</h1>
+   <a href=" {{ url_for('getPokemon') }} ">Back</a>
+   <a class="mon-bouton" href=" /api/types/create ">Add Type</a>
+    <div id="type-info">
+         <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                     <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for col in types %}
+                <tr>
+                    <td>{{col.0}}</td>
+                     <td>{{col.1}}</td>
+                    <td>
+                     <a href="/api/types/{{col.0}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledit{{col.0}}">afficher les detailles</a>
+                     <a href="/api/types/update/{{col.0}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledit{{col.0}}">Modifer Type</a>
+
+                    </td>
+                </tr>
+                {% endfor  %}
+            </tbody>
+
+         </table>
+    </div>
+
+
+
+</body>
+</html>
